@@ -40,13 +40,25 @@ const Manager = () =>
         },
 
         {
-            type: 'list-input',
+            type: 'list',
             name: 'role',
             message: 'What type of employee would you like to add next?',
             choices: ['Engineer', 'Intern', 'Do not add another employee'],
         },
 
     ])
+    .then((answer) => {
+        if (answers.role === 'Engineer'){
+            Engineer()
+        }
+        else if (answers.role === 'Intern'){
+            Intern()
+        }
+        else (// Push answers from Engineer answers to the Team Members array)
+        {
+            
+        }
+    })
 
 const Engineer = () =>
         inquirer.prompt([
@@ -75,12 +87,24 @@ const Engineer = () =>
              },
 
              {
-                type: 'list-input',
+                type: 'list',
                 name: 'role',
                 message: 'What type of employee would you like to add next?',
                 choices: ['Engineer', 'Intern', 'Do not add another employee'],
             },
         ])
+        .then((answer) => {
+            if (answers.role === 'Engineer'){
+                Engineer()
+            }
+            else if (answers.role === 'Intern'){
+                Intern()
+            }
+            else (// Push answers from Engineer answers to the Team Members array)
+            {
+                
+            }
+        })
 
 const Intern = () =>
   inquirer.prompt([
@@ -103,14 +127,26 @@ const Intern = () =>
             },
 
             {
-                type: 'list-input',
+                type: 'list',
                 name: 'role',
                 message: 'What type of employee would you like to add next?',
                 choices: ['Engineer', 'Intern', 'Do not add another employee'],
             },
         ])
+        .then((answer.role) => {
+            if (answers.role === 'Engineer'){
+                Engineer()
+            }
+            else if (answers.role === 'Intern'){
+                Intern()
+            }
+            else (// Push answers from Intern answers to the Team Members array)
+            {
+                
+            }
+        })
 
-render(teamMembers)
+let TeamHTML = render(teamMembers)
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
