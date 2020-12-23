@@ -59,10 +59,10 @@ const managerPrompt = () =>
         else if (managerAnswer.role === 'Intern'){
             internPrompt()
         }
-        else (teamMembers.push(managerAnswer))
-        fs.writeFile('./output/team.html', teamHTML, (err) => {
+       const manager = new Manager(managerAnswer.name, managerAnswer.Id, managerAnswer.email, managerAnswer.office);
+       teamMembers.push(manager)
+        fs.writeFile(outputPath, teamHTML, (err) => {
             if (err) throw err;
-            console.log('The file has been saved!');
           });
     })
 
@@ -106,10 +106,10 @@ const engineerPrompt = () =>
             else if (engineerAnswer.role === 'Intern'){
                 internPrompt()
             }
-            else (teamMembers.push(engineerAnswer))
-            fs.writeFile('./output/team.html', teamHTML, (err) => {
+            const engineer = new Engineer (engineerAnswer.name, engineerAnswer.Id, engineerAnswer.email, engineerAnswer.Github);
+            teamMembers.push(engineer)
+            fs.writeFile(outputPath, teamHTML, (err) => {
                 if (err) throw err;
-                console.log('The file has been saved!');
               });
         })
         
@@ -135,6 +135,12 @@ const internPrompt = () =>
             },
 
             {
+                type: 'input',
+                name: 'school',
+                message: 'What school do they attend?',
+            },
+
+            {
                 type: 'list',
                 name: 'role',
                 message: 'What type of employee would you like to add next?',
@@ -142,16 +148,16 @@ const internPrompt = () =>
             },
         ])
         .then((internAnswer) => {
-            if (internAnswer === 'Engineer'){
+            if (internAnswer.role === 'Engineer'){
                 engineerPrompt()
             }
-            else if (internAnswer === 'Intern'){
+            else if (internAnswer.role === 'Intern'){
                 internPrompt()
             }
-            else (teamMembers.push(internAnswer))
-            fs.writeFile('./output/team.html', teamHTML, (err) => {
+            const intern = new Intern(internAnswer.name, internAnswer.Id, internAnswer.email, internAnswer.school);
+            teamMembers.push(intern)
+            fs.writeFile(outputPath, teamHTML, (err) => {
                 if (err) throw err;
-                console.log('The file has been saved!');
               });
         })
 
