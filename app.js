@@ -10,8 +10,12 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+function initApp() {
+    managerPrompt()
+}
+
 let teamMembers = []
-managerPrompt()
+
 
 const managerPrompt = () =>
     inquirer.prompt([
@@ -56,6 +60,10 @@ const managerPrompt = () =>
             internPrompt()
         }
         else (teamMembers.push(managerAnswer))
+        fs.writeFile('./output/Team.html', teamHTML)
+        .catch((error) => {
+            console.log(err)
+        })
     })
 
 const engineerPrompt = () =>
@@ -99,6 +107,10 @@ const engineerPrompt = () =>
                 internPrompt()
             }
             else (teamMembers.push(engineerAnswer))
+            fs.writeFile('./output/Team.html', teamHTML)
+            .catch((error) => {
+                console.log(err)
+            })
         })
 
 const internPrompt = () =>
@@ -136,10 +148,14 @@ const internPrompt = () =>
                 internPrompt()
             }
             else (teamMembers.push(internAnswer))
+            fs.writeFile('./output/Team.html', teamHTML)
+            .catch((error) => {
+                console.log(err)
+            })
         })
 
 let teamHTML = render(teamMembers)
-    fs.writeFile('./output/Team.html', teamHTML)
+    
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -163,3 +179,4 @@ let teamHTML = render(teamMembers)
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+initApp()
