@@ -60,10 +60,10 @@ const managerPrompt = () =>
             internPrompt()
         }
         else (teamMembers.push(managerAnswer))
-        fs.writeFile('./output/Team.html', teamHTML)
-        .catch((error) => {
-            console.log(err)
-        })
+        fs.writeFile('./output/team.html', teamHTML, (err) => {
+            if (err) throw err;
+            console.log('The file has been saved!');
+          });
     })
 
 const engineerPrompt = () =>
@@ -107,11 +107,12 @@ const engineerPrompt = () =>
                 internPrompt()
             }
             else (teamMembers.push(engineerAnswer))
-            fs.writeFile('./output/Team.html', teamHTML)
-            .catch((error) => {
-                console.log(err)
-            })
+            fs.writeFile('./output/team.html', teamHTML, (err) => {
+                if (err) throw err;
+                console.log('The file has been saved!');
+              });
         })
+        
 
 const internPrompt = () =>
   inquirer.prompt([
@@ -148,10 +149,10 @@ const internPrompt = () =>
                 internPrompt()
             }
             else (teamMembers.push(internAnswer))
-            fs.writeFile('./output/Team.html', teamHTML)
-            .catch((error) => {
-                console.log(err)
-            })
+            fs.writeFile('./output/team.html', teamHTML, (err) => {
+                if (err) throw err;
+                console.log('The file has been saved!');
+              });
         })
 
 let teamHTML = render(teamMembers)
