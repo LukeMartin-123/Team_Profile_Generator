@@ -11,8 +11,9 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 let teamMembers = []
+managerPrompt()
 
-const Manager = () =>
+const managerPrompt = () =>
     inquirer.prompt([
        
         {
@@ -47,20 +48,17 @@ const Manager = () =>
         },
 
     ])
-    .then((answer) => {
-        if (answers.role === 'Engineer'){
-            Engineer()
+    .then((managerAnswer) => {
+        if (managerAnswer.role === 'Engineer'){
+            engineerPrompt()
         }
-        else if (answers.role === 'Intern'){
-            Intern()
+        else if (managerAnswer.role === 'Intern'){
+            internPrompt()
         }
-        else (// Push answers from Engineer answers to the Team Members array)
-        {
-            
-        }
+        else (teamMembers.push(managerAnswer))
     })
 
-const Engineer = () =>
+const engineerPrompt = () =>
         inquirer.prompt([
             {
                 type: 'input',
@@ -93,20 +91,17 @@ const Engineer = () =>
                 choices: ['Engineer', 'Intern', 'Do not add another employee'],
             },
         ])
-        .then((answer) => {
-            if (answers.role === 'Engineer'){
-                Engineer()
+        .then((engineerAnswer) => {
+            if (engineerAnswer.role === 'Engineer'){
+                engineerPrompt()
             }
-            else if (answers.role === 'Intern'){
-                Intern()
+            else if (engineerAnswer.role === 'Intern'){
+                internPrompt()
             }
-            else (// Push answers from Engineer answers to the Team Members array)
-            {
-                
-            }
+            else (teamMembers.push(engineerAnswer))
         })
 
-const Intern = () =>
+const internPrompt = () =>
   inquirer.prompt([
             {
                 type: 'input',
@@ -133,20 +128,18 @@ const Intern = () =>
                 choices: ['Engineer', 'Intern', 'Do not add another employee'],
             },
         ])
-        .then((answer.role) => {
-            if (answers.role === 'Engineer'){
-                Engineer()
+        .then((internAnswer) => {
+            if (internAnswer === 'Engineer'){
+                engineerPrompt()
             }
-            else if (answers.role === 'Intern'){
-                Intern()
+            else if (internAnswer === 'Intern'){
+                internPrompt()
             }
-            else (// Push answers from Intern answers to the Team Members array)
-            {
-                
-            }
+            else (teamMembers.push(internAnswer))
         })
 
-let TeamHTML = render(teamMembers)
+let teamHTML = render(teamMembers)
+    fs.writeFile('./output/Team.html', teamHTML)
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
